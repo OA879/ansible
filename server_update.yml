@@ -1,0 +1,26 @@
+---
+- name: Install updates and reboot
+  hosts: windows
+  tasks:
+    - name: Gather facts about installed updates
+      ansible.windows.win_updates:
+      register: updates
+
+    - name: Display update information
+      debug:
+        var: updates
+
+    - name: Install updates
+      ansible.windows.win_updates:
+        category_names: '*'
+        reboot: true
+
+    - name: Debug Reboot Required
+      debug:
+        var: updates.reboot_required
+
+    - name: Reboot always
+      ansible.builtin.reboot:
+        reboot_timeout: 1200
+      when: true
+

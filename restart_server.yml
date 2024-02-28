@@ -1,0 +1,9 @@
+---
+- name: Reboot Windows Hosts
+  hosts: all  # Specify the IP address of the Windows host
+  gather_facts: no  # Skip gathering facts before the reboot
+
+  tasks:
+    - name: Reboot the Windows hosts
+      win_reboot:
+        reboot_timeout: 300  # Set a timeout (in seconds) for the reboot to complete
